@@ -1,0 +1,60 @@
+#content {
+	width: 500px;
+	li {
+		display: inline;
+		margin-left: 20px;
+	}
+		a {
+			color: green;
+
+			// '&' -tselector: nested selector to parent selector
+			&:hover{
+				color: blue;
+			}
+			&.selected {
+				color: red;
+			}
+		}
+}
+
+@color: #f938ab;
+@base: 100px;
+@height: @base * 2;
+@min-width: @base + 100;
+@max-width: (@min-width - 50) * 2;
+
+.box-shadow(@style, @c) when (iscolor(@c)) {
+  -webkit-box-shadow: @style @c;
+  box-shadow:         @style @c;
+}
+.box-shadow(@style, @alpha: 50%) when (isnumber(@alpha)) {
+  .box-shadow(@style, rgba(0, 0, 0, @alpha));
+}
+.box {
+  background: @color;
+  min-width: @min-width;
+  max-width: @max-width;
+  height: @height;
+  color: lighten(@color, 50%);
+  border-color: lighten(@color, 30%);
+  .box-shadow(0 0 10px, 30%);
+}
+
+
+//namespace
+
+#bundle {
+  .button {
+    display: block;
+    border: 1px solid black;
+    background-color: grey;
+    &:hover {
+      background-color: white
+    }
+  }
+}
+
+#header a {
+	color: orange;
+	#bundle > .button;
+}
